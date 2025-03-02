@@ -4,29 +4,29 @@ import Home from "../features/Home";
 import Navigation from "../features/Navigation";
 import { Row } from "../components/Common";
 import About from "../features/About";
-import { StockContext } from "./context";
-import { COMPANY_DEFAULT, stockFormReducer } from "../hooks/stockFormReducer";
+import { CryptoContext } from "./context";
+import { CRYPTO_DEFAULT, cryptoFormReducer } from "../hooks/cryptoFormReducer";
 import KlineChart from "../features/KlineChart";
 
 function App() {
-  const [stockFormData, dispatch] = useReducer(
-    stockFormReducer,
-    COMPANY_DEFAULT
+  const [cryptoFormData, dispatch] = useReducer(
+    cryptoFormReducer,
+    CRYPTO_DEFAULT
   );
 
-  const stockProviderValue = { state: stockFormData, dispatch };
+  const cryptoProviderValue = { state: cryptoFormData, dispatch };
 
   return (
     <Router>
       <Navigation />
       <Row>
-        <StockContext.Provider value={stockProviderValue}>
+        <CryptoContext.Provider value={cryptoProviderValue}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/news" element={<KlineChart />} />
           </Routes>
-        </StockContext.Provider>
+        </CryptoContext.Provider>
       </Row>
     </Router>
   );

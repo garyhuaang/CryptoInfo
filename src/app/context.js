@@ -1,3 +1,3 @@
-import { createContext } from 'react'
+import { createContext } from "react";
 
-export const StockContext = createContext()
+export const CryptoContext = createContext();

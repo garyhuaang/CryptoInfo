@@ -24,7 +24,7 @@ function Navigation() {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <Row style={{ position: "fixed", marginTop: "20px" }}>
+    <Row style={{ position: "fixed", marginTop: "20px", zIndex: "99999" }}>
       <DrawerRoot
         placement={"start"}
         isOpen={isOpen}
