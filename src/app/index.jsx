@@ -1,32 +1,25 @@
-import { useReducer } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Home from "../features/Home";
-import Navigation from "../features/Navigation";
+import Home from "../features/pages/Home";
+import Navigation from "../components/Navigation";
 import { Row } from "../components/Common";
-import About from "../features/About";
-import { CryptoContext } from "./context";
-import { CRYPTO_DEFAULT, cryptoFormReducer } from "../hooks/cryptoFormReducer";
-import KlineChart from "../features/KlineChart";
+import About from "../features/pages/About";
+import KlineChart from "../features/crypto/components/KlineChart";
+import { CryptoProvider } from "../features/crypto/provider";
+import ExchangeInfo from "../features/crypto/components/ExchangeInfo";
 
 function App() {
-  const [cryptoFormData, dispatch] = useReducer(
-    cryptoFormReducer,
-    CRYPTO_DEFAULT
-  );
-
-  const cryptoProviderValue = { state: cryptoFormData, dispatch };
-
   return (
     <Router>
       <Navigation />
       <Row>
-        <CryptoContext.Provider value={cryptoProviderValue}>
+        <CryptoProvider>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
-            <Route path="/news" element={<KlineChart />} />
+            <Route path="/kline" element={<KlineChart />} />
+            <Route path="/exchange-info" element={<ExchangeInfo />} />
           </Routes>
-        </CryptoContext.Provider>
+        </CryptoProvider>
       </Row>
     </Router>
   );

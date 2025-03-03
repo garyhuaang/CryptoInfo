@@ -2,7 +2,6 @@ import { memo } from "react";
 import { Link } from "react-router-dom";
 
 import {
-  Sticky,
   useDisclosure,
   DrawerActionTrigger,
   DrawerBackdrop,
@@ -14,9 +13,9 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@chakra-ui/react";
-import IconButton from "../../components/Buttons/IconButton";
+import IconButton from "../Buttons/IconButton";
 import { RxHamburgerMenu } from "react-icons/rx";
-import { Row } from "../../components/Common";
+import { Row } from "../Common";
 import "./styles.css";
 import NavigationPaths from "./NavigationPaths";
 

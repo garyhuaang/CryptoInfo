@@ -1,15 +1,17 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './app/'
-import Provider from './components/ChackraUI/provider.jsx'
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import App from "./app/";
+import Provider from "./components/ChackraUI/provider.jsx";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
+const queryClient = new QueryClient();
+
+createRoot(document.getElementById("root")).render(
+  <QueryClientProvider client={queryClient}>
     <Provider>
-      <main className='app-wrapper'>
+      <main className="app-wrapper">
         <App />
       </main>
     </Provider>
-  </StrictMode>,
-)
+  </QueryClientProvider>
+);

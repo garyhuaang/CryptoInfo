@@ -1,28 +1,23 @@
 import { memo, useContext, useEffect, useState } from "react";
 import { formatUnixTimestamp, KLINE_SERIES_CONFIG } from "./utils";
-import { Actions } from "../../hooks/cryptoFormReducer";
-
-import FeatureHeader from "../../components/FeatureHeader";
-import { Column, Row } from "../../components/Common";
-import { CryptoContext } from "../../app/context";
+import Actions from "../../actions";
+import FeatureHeader from "/src/components/FeatureHeader";
+import { Column, Row } from "/src/components/Common";
+import { CryptoContext } from "/src/features/crypto/provider";
 import StyledCard from "/src/components/Card";
-import { fetchKlineData } from "/src/service/configuration";
-import Chart from "../../components/Chart";
+import { fetchAllKlineData } from "/src/service/api";
+import Chart from "/src/components/Chart";
 
 const KlineChart = () => {
   const { state, dispatch } = useContext(CryptoContext);
   const [chartData, setChartData] = useState([]);
 
   useEffect(() => {
-    async function getKlineData() {
-      try {
-        const data = await fetchKlineData("BTCTRY", 60, 1602925320, 1603152000);
-        setChartData(data); // Set the state with the resolved data.
-      } catch (error) {
-        console.error("Error fetching kline data:", error);
-      }
-    }
-    getKlineData();
+    fetchAllKlineData("BTCTRY", 60, 1602925320, 1603152000)
+      .then((data) => {
+        setChartData(data);
+      })
+      .catch((err) => console.log("Error fetching kline data", err));
   }, []);
 
   useEffect(() => {
@@ -48,7 +43,7 @@ const KlineChart = () => {
 
     const allData = [openSeries, highSeries, lowSeries, closeSeries];
 
-    console.log("allData", allData);
+    console.log(allData);
 
     dispatch({
       type: Actions.SET_KLINE_DATA,
@@ -62,7 +57,6 @@ const KlineChart = () => {
         low: chartData.l,
         open: chartData.o,
         close: chartData.c,
-        volume: chartData.v,
         combinedValueArr: allData,
       },
     });
@@ -70,7 +64,7 @@ const KlineChart = () => {
 
   return (
     <Column>
-      <FeatureHeader title="Stock news" />
+      <FeatureHeader title="Kline data" />
       <Row>
         <StyledCard
           title="Is this company profitable?"

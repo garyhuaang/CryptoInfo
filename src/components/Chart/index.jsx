@@ -30,7 +30,6 @@ const Chart = ({
     chart.timeScale().fitContent();
 
     data.forEach((seriesData, index) => {
-      console.log("Processing series", index, seriesData);
       const lineColor = defaultLineColors[index] || "#2962FF";
 
       if (!Array.isArray(seriesData) || seriesData.length === 0) {
@@ -40,8 +39,8 @@ const Chart = ({
 
       const series = chart.addSeries(AreaSeries, {
         lineColor,
-        topColor: "rgba(41, 98, 255, 0.4)",
-        bottomColor: "rgba(41, 98, 255, 0.1)",
+        topColor: "transparent",
+        bottomColor: "transparent",
       });
 
       const newData = seriesData.map((point) => ({
