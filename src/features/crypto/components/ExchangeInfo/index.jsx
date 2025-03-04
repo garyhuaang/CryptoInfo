@@ -1,58 +1,55 @@
-import { useQuery } from "@tanstack/react-query";
+import { memo, useEffect, useRef, useState } from 'react'
 
-import { memo } from "react";
-import FeatureHeader from "/src/components/FeatureHeader";
-import { fetchExchangeInfo, fetchTickerData } from "../../../../service/api";
-import TickerList from "../TickerList";
+import { fetchExchangeInfo, fetchTickerData } from '../../../../service/api'
+import TickerList from '../TickerList'
+import FeatureHeader from '@src/components/FeatureHeader'
+import Grid from '../../../../components/Grid'
 
+// const [exchangeInfo, setExchangeInfo] = useState();
+// Fetch exchange data
+// useEffect(() => {
+//   fetchExchangeInfo()
+//     .then((data) => {
+//       console.log(data);
+//       setExchangeInfo(data);
+//     })
+//     .catch((err) => {
+//       console.error("Exchange info failed downstream - ", err);
+//     });
+// }, []);
 const ExhchangeInfo = () => {
-  // const [exchangeInfo, setExchangeInfo] = useState();
-  // Fetch exchange data
-  const {
-    data: exchangeData,
-    error: exchangeError,
-    isLoading: isExchangeLoading,
-  } = useQuery({
-    queryKey: ["exchangeData"],
-    queryFn: fetchExchangeInfo,
-  });
+  const [exchangeData, setExchangeData] = useState([])
+  const [tickerData, setTickerData] = useState([])
+  const exchangeDataRef = useRef(exchangeData)
 
-  // Fetch ticker data
-  const {
-    data: tickerData,
-    error: tickerError,
-    isLoading: isTickerLoading,
-  } = useQuery({
-    queryKey: ["tickerData"],
-    queryFn: fetchTickerData,
-  });
+  useEffect(() => {
+    fetchExchangeInfo()
+      .then(info => {
+        setExchangeData(info)
+        exchangeDataRef.current = info
+      })
+      .catch(err => console.error(err))
+  }, [])
 
-  if (isExchangeLoading || isTickerLoading) {
-    return <div>Loading...</div>;
+  useEffect(() => {
+    fetchTickerData()
+      .then(data => setTickerData(data))
+      .catch(err => console.error(err))
+  }, [])
+
+  if (exchangeData) {
+    console.log('exchangeData', exchangeData)
   }
-
-  if (exchangeError || tickerError) {
-    return <div>Error: {exchangeError?.message || tickerError?.message}</div>;
-  }
-
-  // useEffect(() => {
-  //   fetchExchangeInfo()
-  //     .then((data) => {
-  //       console.log(data);
-  //       setExchangeInfo(data);
-  //     })
-  //     .catch((err) => {
-  //       console.error("Exchange info failed downstream - ", err);
-  //     });
-  // }, []);
 
   return (
     <>
+      {exchangeDataRef?.current?.data?.currencies && (
+        <Grid array={exchangeDataRef?.current?.data?.currencies} />
+      )}
       <TickerList tickerData={tickerData} />
-      <FeatureHeader title="Exchange info" />
-      <pre>{JSON.stringify(exchangeData, null, 2)}</pre>
+      {/* <FeatureHeader title='Exchange info' /> */}
     </>
-  );
-};
+  )
+}
 
-export default memo(ExhchangeInfo);
+export default memo(ExhchangeInfo)

@@ -1,5 +1,5 @@
 export const KLINE_DATA_DEFAULT = {
-  ticker: "",
+  ticker: '',
   resolution: 1,
   from: 0,
   to: 0,
@@ -9,8 +9,8 @@ export const KLINE_DATA_DEFAULT = {
   open: [],
   close: [],
   mergedValueArr: [],
-};
+}
 
 export const CRYPTO_DEFAULT = {
   kline: KLINE_DATA_DEFAULT,
-};
+}

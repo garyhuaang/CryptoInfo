@@ -1,8 +1,8 @@
 import { createRoot } from "react-dom/client";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import "./index.css";
 import App from "./app/";
 import Provider from "./components/ChackraUI/provider.jsx";
-import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 
 const queryClient = new QueryClient();
 

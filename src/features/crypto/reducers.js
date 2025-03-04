@@ -1,5 +1,5 @@
-import Actions from "./actions";
-import { CRYPTO_DEFAULT } from "./defaultStates";
+import Actions from './actions'
+import { CRYPTO_DEFAULT } from './defaultStates'
 
 export const cryptoFormReducer = (state, action) => {
   switch (action.type) {
@@ -10,8 +10,8 @@ export const cryptoFormReducer = (state, action) => {
           ...state.kline,
           ...action.payload,
         },
-      };
+      }
     default:
-      return CRYPTO_DEFAULT;
+      return CRYPTO_DEFAULT
   }
-};
+}

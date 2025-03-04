@@ -1,5 +1,5 @@
-import { memo } from "react";
-import { Link } from "react-router-dom";
+import { memo } from 'react'
+import { Link } from 'react-router-dom'
 
 import {
   useDisclosure,
@@ -12,27 +12,27 @@ import {
   DrawerRoot,
   DrawerTitle,
   DrawerTrigger,
-} from "@chakra-ui/react";
-import IconButton from "../Buttons/IconButton";
-import { RxHamburgerMenu } from "react-icons/rx";
-import { Row } from "../Common";
-import "./styles.css";
-import NavigationPaths from "./NavigationPaths";
+} from '@chakra-ui/react'
+import IconButton from '../Buttons/IconButton'
+import { RxHamburgerMenu } from 'react-icons/rx'
+import { Row } from '../Common'
+import './styles.css'
+import NavigationPaths from './NavigationPaths'
 
 function Navigation() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
-    <Row style={{ position: "fixed", marginTop: "20px", zIndex: "99999" }}>
+    <Row style={{ position: 'fixed', marginTop: '20px', zIndex: '99999' }}>
       <DrawerRoot
-        placement={"start"}
+        placement={'start'}
         isOpen={isOpen}
         onClose={onClose}
-        sx={{ display: "flex" }}
+        sx={{ display: 'flex' }}
       >
         <DrawerBackdrop />
         <DrawerTrigger asChild>
-          <IconButton icon={RxHamburgerMenu} onClick={onOpen} size="1.5em" />
+          <IconButton icon={RxHamburgerMenu} onClick={onOpen} size='1.5em' />
         </DrawerTrigger>
 
         <DrawerContent>
@@ -48,7 +48,7 @@ function Navigation() {
                     {path.text}
                   </Link>
                 </DrawerActionTrigger>
-              );
+              )
             })}
           </DrawerBody>
 
@@ -56,7 +56,7 @@ function Navigation() {
         </DrawerContent>
       </DrawerRoot>
     </Row>
-  );
+  )
 }
 
-export default memo(Navigation);
+export default memo(Navigation)
